@@ -49,11 +49,7 @@ function readSvgDir() {
  * 生成 .js 文件
  */
 readSvgDir().then((data) => {
-    const svgFile = `export default {
-        ${
-    data.map((item, index) => `${Object.keys(item)[0]}: '${Object.values(item)[0]}'\n`)
-}
-    }`;
+    const svgFile = `export default {\n${data.map((item, index) => `    ${Object.keys(item)[0]}: '${Object.values(item)[0]}',\n`).join('')}};\n`;
     writeFile(path.resolve(__dirname, `./${GENERATE_SVG_FILE_NAME}`), svgFile, (err) => {
         if (err) {
             throw new Error(err);
